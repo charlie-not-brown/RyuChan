@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { toast, Toaster } from 'sonner'
 import { useAuthStore } from './hooks/use-auth'
-import { getAuthToken } from '@/lib/auth'
 import { readFileAsText } from '@/lib/file-utils'
 import { loadFriendsFromGitHub, saveFriendsToGitHub } from './services/friends-service'
 import type { FriendItem } from '@/interface/friend'
@@ -227,15 +226,9 @@ export default function FriendsEditPage({ initialFriends = [] }: Props) {
   }
 
   const onChoosePrivateKey = async (file: File) => {
-    try {
-      const pem = await readFileAsText(file)
-      await setPrivateKey(pem)
-      toast.success('密钥导入成功')
-      // Pre-fetch and cache the installation token without reloading data
-      getAuthToken().catch(() => {})
-    } catch {
-      toast.error('密钥导入失败')
-    }
+    const pem = await readFileAsText(file)
+    setPrivateKey(pem)
+    toast.success('密钥导入成功')
   }
 
   const handleAvatarClick = (index: number) => {
@@ -285,7 +278,7 @@ export default function FriendsEditPage({ initialFriends = [] }: Props) {
     return (
       <div className="shrink-0">
         <div
-          className={`group relative w-16 h-16 rounded-full bg-base-200/50 p-0.5 ring-2 ring-base-200 transition-all duration-300 ${
+          className={`group relative rounded-full bg-base-200/50 p-0.5 ring-2 ring-base-200 transition-all duration-300 ${isEditing ? 'w-20 h-20' : 'w-16 h-16'} ${
             isEditing ? 'cursor-pointer hover:ring-primary/50 hover:shadow-md' : ''
           }`}
           onClick={() => isEditing && handleAvatarClick(index)}
@@ -376,7 +369,7 @@ export default function FriendsEditPage({ initialFriends = [] }: Props) {
     if (isEditing) {
       return (
         <input
-          className="input input-sm input-bordered w-full bg-base-100 focus:border-primary text-sm"
+          className="input input-bordered w-full bg-base-100 focus:border-primary text-base"
           value={friend.url}
           onChange={e => updateFriend(index, 'url', e.target.value)}
           placeholder="网站链接"
@@ -490,26 +483,13 @@ export default function FriendsEditPage({ initialFriends = [] }: Props) {
                 className="group relative block h-full bg-base-100 rounded-2xl border border-base-200 hover:border-primary/40 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
               >
                 <div className="p-4 flex flex-col h-full">
-                  {/* Card editing mode: Cancel + Complete buttons full-width */}
-                  {isEditing && (
-                    <div className="w-full mb-3">
-                      <button onClick={() => handleCancelEdit(index)} className="btn btn-sm btn-ghost w-full rounded-lg text-base-content/60 font-semibold mb-1.5">
-                        取消
-                      </button>
-                      <button onClick={() => handleCompleteEdit(index)} className="btn btn-sm btn-primary w-full rounded-lg font-semibold">
-                        完成
-                      </button>
-                      <div className="border-b border-base-200/50 mt-3" />
-                    </div>
-                  )}
-
                   {/* Global edit mode: Move up/down + Edit + Delete buttons on their own row */}
                   {globalEditMode && !isEditing && (
                     <div className="flex justify-end gap-2 mb-2">
                       {index > 0 && (
                         <button
                           onClick={(e) => { e.preventDefault(); handleMoveUp(index) }}
-                          className="btn btn-sm btn-ghost text-base-content/50 hover:text-base-content hover:bg-base-200 rounded-lg px-2"
+                          className="btn btn-sm btn-ghost text-primary/50 hover:text-primary hover:bg-primary/10 rounded-lg px-2"
                           title="上移"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
@@ -518,7 +498,7 @@ export default function FriendsEditPage({ initialFriends = [] }: Props) {
                       {index < friends.length - 1 && (
                         <button
                           onClick={(e) => { e.preventDefault(); handleMoveDown(index) }}
-                          className="btn btn-sm btn-ghost text-base-content/50 hover:text-base-content hover:bg-base-200 rounded-lg px-2"
+                          className="btn btn-sm btn-ghost text-primary/50 hover:text-primary hover:bg-primary/10 rounded-lg px-2"
                           title="下移"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -578,6 +558,18 @@ export default function FriendsEditPage({ initialFriends = [] }: Props) {
                   <div className="pt-2 border-t border-base-200/50 mt-auto">
                     {renderUrl(friend, index, isEditing)}
                   </div>
+
+                  {/* Card editing mode: Cancel + Complete buttons at bottom */}
+                  {isEditing && (
+                    <div className="w-full mt-3">
+                      <button onClick={() => handleCancelEdit(index)} className="btn btn-sm btn-ghost w-full rounded-lg text-base-content/60 font-semibold mb-1.5">
+                        取消
+                      </button>
+                      <button onClick={() => handleCompleteEdit(index)} className="btn btn-sm btn-primary w-full rounded-lg font-semibold">
+                        完成
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             )
