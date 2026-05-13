@@ -1,7 +1,7 @@
 site:
   tab: RyuChan
-  title: KoBari
-  title_type: text
+  title: RyuChan
+  title_type: image
   description: 🌸 轻盈、优雅、纯净 —— 用文字与图片记录生活与创意
   language: zh
   favicon: /favicon.png
@@ -16,7 +16,7 @@ site:
     enableRandom: true
     randomUrl: https://t.alcy.cc/ycy
     randomCount: 5
-    height: 60vh
+    height: 70vh
     images:
       - https://tc.alcy.cc/q/20250908/b2d656670551cb9ea6eda7b46b6c8ec0.webp
   icp: 萌ICP备20261117号
@@ -89,7 +89,7 @@ site:
       href: /about
       svg: material-symbols:info-outline-rounded
       target: _self
-  titleType: text
+  titleType: image
 anime:
   bilibili:
     uid: '1536411565'
