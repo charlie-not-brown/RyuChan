@@ -883,18 +883,6 @@ export function ConfigPage() {
                                                 <span className="text-xs text-base-content/50 ml-auto">{(parsedConfig?.music?.playlists || []).length} 个歌单</span>
                                             </div>
 
-                                            {selectedPlaylistId && (
-                                                <div className="flex items-center gap-2 p-3 bg-primary/10 rounded-xl border border-primary/20">
-                                                    <span className="text-xs text-primary font-medium">
-                                                        已选择: {parsedConfig?.music?.playlists?.find((p: any) => p.id === selectedPlaylistId)?.name || selectedPlaylistId}
-                                                    </span>
-                                                    <div className="flex-1"></div>
-                                                    <button onClick={() => moveSelectedPlaylist('up')} className="btn btn-xs btn-primary">↑ 上移</button>
-                                                    <button onClick={() => moveSelectedPlaylist('down')} className="btn btn-xs btn-primary">↓ 下移</button>
-                                                    <button onClick={() => setSelectedPlaylistId(null)} className="btn btn-xs btn-ghost">取消</button>
-                                                </div>
-                                            )}
-
                                             <div className="space-y-2">
                                                 {(parsedConfig?.music?.playlists || []).map((item: any, index: number) => {
                                                     const isSelected = selectedPlaylistId === item.id
@@ -933,6 +921,9 @@ export function ConfigPage() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="flex items-center gap-2 mt-3 pt-2 border-t border-base-300">
+                                                                    <button onClick={(e) => { e.stopPropagation(); movePlaylistEntry(item.id, 'up'); }} disabled={index === 0} className="btn btn-xs btn-ghost">↑</button>
+                                                                    <button onClick={(e) => { e.stopPropagation(); movePlaylistEntry(item.id, 'down'); }} disabled={index === (parsedConfig?.music?.playlists?.length || 0) - 1} className="btn btn-xs btn-ghost">↓</button>
+                                                                    <div className="flex-1"></div>
                                                                     <button onClick={() => removePlaylistEntry(index)} className="btn btn-xs btn-outline btn-error">删除</button>
                                                                 </div>
                                                             </div>
