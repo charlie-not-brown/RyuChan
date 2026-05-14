@@ -4,7 +4,7 @@ site:
   title_type: image
   description: 🌸 轻盈、优雅、纯净 —— 用文字与图片记录生活与创意
   language: zh
-  favicon: /favicon.ico
+  favicon: https://hub.131714.xyz/favicon.png
   theme:
     light: garden
     dark: dracula
