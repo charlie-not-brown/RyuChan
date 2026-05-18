@@ -14,7 +14,7 @@ site:
     pageSize: 8
   banner:
     enableRandom: false
-    randomUrl: https://t.alcy.cc/ycy
+    randomUrl: 
     randomCount: 5
     height: 70vh
     images:
@@ -25,13 +25,13 @@ site:
     home:
       title: RyuChan's Blog
       subtitle: 欲买桂花同载酒，终不似，少年游！
-      typewriterTexts:
+      typewriterTexts: null
     friend:
       title: 友链
-      subtitle: 
+      subtitle: null
     about:
       title: About Me
-      subtitle: 
+      subtitle: null
     navigation:
       title: 网站导航
       subtitle: 收藏的常用网站和工具链接
@@ -91,7 +91,7 @@ site:
   titleType: text
 anime:
   bilibili:
-    uid: '1536411565'
+    uid: ''
   tmdb:
     apiKey: 08a6bef260044f70c150251c79f2e476
     listId: '8556173'
