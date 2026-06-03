@@ -14,7 +14,7 @@ site:
     pageSize: 8
   banner:
     enableRandom: false
-    randomUrl: 
+    randomUrl: null
     randomCount: 5
     height: 70vh
     images:
@@ -23,8 +23,8 @@ site:
   icp_link: ''
   pages:
     home:
-      title: 
-      subtitle: 
+      title: null
+      subtitle: null
       typewriterTexts: null
     friend:
       title: 友链
@@ -139,7 +139,7 @@ user:
         title: Telegram
         svg: ri:telegram-line
 comments:
-  enable: false
+  enable: true
   type: twikoo
   giscus:
     repo: kobaridev/gsc
@@ -166,5 +166,5 @@ comments:
     reaction: false
     pageview: false
   twikoo:
-    envId: https://twikoo.131714.xyz
+    envId: https://twikoo.timdrake.top
     lang: zh-CN
